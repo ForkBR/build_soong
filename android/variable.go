@@ -98,7 +98,7 @@ type variableProperties struct {
 		}
 
 		// include Bootleggers variables
-		*android.Product_variables
+		Bootleggers android.Product_variables
 	} `android:"arch_variant"`
 }
 
@@ -174,7 +174,7 @@ type productVariables struct {
 	DeviceKernelHeaders []string `json:",omitempty"`
 
 	// include Bootleggers variables
-	*android.ProductVariables
+	Bootleggers android.ProductVariables
 }
 
 func boolPtr(v bool) *bool {
