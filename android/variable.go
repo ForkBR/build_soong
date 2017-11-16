@@ -20,7 +20,7 @@ import (
 	"runtime"
 	"strings"
 
-	"gzosp/soong/android"
+	"bootleggers/soong/android"
 
 	"github.com/google/blueprint/proptools"
 )
@@ -87,9 +87,8 @@ type variableProperties struct {
 			Cflags   []string
 			Cppflags []string
 		}
-		// include gzosp variables
-		Gzosp android.Product_variables
-
+		// include bootleggers variables
+		Bootleggers android.Product_variables
 	} `android:"arch_variant"`
 }
 
@@ -156,8 +155,8 @@ type productVariables struct {
 
 	Override_rs_driver *string `json:",omitempty"`
 
-	// include gzosp variables
-	Gzosp android.ProductVariables
+	// include bootleggers variables
+	Bootleggers android.ProductVariables
 }
 
 func boolPtr(v bool) *bool {
