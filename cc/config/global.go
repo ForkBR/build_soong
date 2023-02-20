@@ -73,7 +73,7 @@ var (
 		"-Werror=int-conversion",
 
 		// Enable the new pass manager.
-		"-fexperimental-new-pass-manager",
+		//"-fexperimental-new-pass-manager",
 
 		// Disable overly aggressive warning for macros defined with a leading underscore
 		// This happens in AndroidConfig.h, which is included nearly everywhere.
@@ -186,6 +186,10 @@ var (
 	}
 
 	noOverrideGlobalCflags = []string{
+		// Workaround for boot loop caused by stack protector.
+		// http://b/267839238
+		"-mllvm -disable-check-noreturn-call",
+
 		"-Werror=bool-operation",
 		"-Werror=implicit-int-float-conversion",
 		"-Werror=int-in-bool-context",
@@ -234,6 +238,23 @@ var (
 		// New warnings to be fixed after clang-r433403
 		"-Wno-error=unused-but-set-variable",  // http://b/197240255
 		"-Wno-error=unused-but-set-parameter", // http://b/197240255
+		// New warnings to be fixed after clang-r458507
+		"-Wno-error=unqualified-std-cast-call", // http://b/239662094
+		// New warnings to be fixed after clang-r468909
+		"-Wno-error=array-parameter",     // http://b/241941550
+		"-Wno-error=deprecated-builtins", // http://b/241601211
+		"-Wno-error=deprecated",          // in external/googletest/googletest
+		// More additions
+		"-Wno-error=deprecated-non-prototype",
+		"-Wno-error=strict-prototypes",
+		"-Wno-error=enum-conversion",
+		"-Wno-error=unused-value",
+		"-Wno-error=single-bit-bitfield-constant-conversion",
+		"-Wno-error=unused-private-field",
+		"-Wno-unused-command-line-argument",
+		"-Wno-error=thread-safety-analysis",
+		"-Wno-error=unguarded-availability",
+		"-Wno-error=logical-op-parentheses",
 	}
 
 	noOverrideExternalGlobalCflags = []string{
@@ -242,6 +263,7 @@ var (
 		"-Wno-unused-but-set-parameter",
 		// http://b/215753485
 		"-Wno-bitwise-instead-of-logical",
+		"-Wno-gnu-offsetof-extensions",
 	}
 
 	// Extra cflags for external third-party projects to disable warnings that
@@ -286,8 +308,8 @@ var (
 
 	// prebuilts/clang default settings.
 	ClangDefaultBase         = "prebuilts/clang/host"
-	ClangDefaultVersion      = "clang-r450784d"
-	ClangDefaultShortVersion = "14.0.6"
+	ClangDefaultVersion      = "clang-r487747"
+	ClangDefaultShortVersion = "17"
 
 	// Directories with warnings from Android.bp files.
 	WarningAllowedProjects = []string{
